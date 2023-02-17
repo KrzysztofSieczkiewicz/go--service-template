@@ -7,19 +7,25 @@ import (
 	"github.com/KrzysztofSieczkiewicz/go-service-template/src/data"
 )
 
-type Mesh struct {
+type Meshes struct {
 	l *log.Logger
 }
 
-func NewMesh(l *log.Logger) *Mesh {
-	return &Mesh{l}
+func NewMeshes(l *log.Logger) *Meshes {
+	return &Meshes{l}
 }
 
-func (m *Mesh) ServeHTTP(rw http.ResponseWriter, h *http.Request) {
+func (m *Meshes) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		m.getMeshes(rw, r)
+		return
+	}
 
+	//catch remaining
+	rw.WriteHeader(http.StatusMethodNotAllowed)
 }
 
-func (m *Mesh) getMeshes(rw http.ResponseWriter, h *http.Request) {
+func (m *Meshes) getMeshes(rw http.ResponseWriter, r *http.Request) {
 	lm := data.GetMeshes()
 	err := lm.ToJSON(rw)
 	if err != nil {

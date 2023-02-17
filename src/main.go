@@ -15,7 +15,7 @@ func main() {
 
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
 
-	mh := handlers.NewMesh(l)
+	mh := handlers.NewMeshes(l)
 	gh := handlers.NewGoodbye(l)
 
 	sm := http.NewServeMux()
