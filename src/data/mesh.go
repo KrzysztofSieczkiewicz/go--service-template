@@ -16,6 +16,11 @@ type Mesh struct {
 
 type Meshes []*Mesh
 
+func (m *Mesh) FromJSON(r io.Reader) error {
+	d := json.NewDecoder(r)
+	return d.Decode(m)
+}
+
 func (m *Meshes) ToJSON(w io.Writer) error {
 	e := json.NewEncoder(w)
 	return e.Encode(m)
