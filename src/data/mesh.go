@@ -30,6 +30,16 @@ func GetMeshes() Meshes {
 	return meshList
 }
 
+func AddMesh(m *Mesh) {
+	m.ID = GetNextID()
+	meshList = append(meshList, m)
+}
+
+func GetNextID() int {
+	m := meshList[len(meshList)-1]
+	return m.ID + 1
+}
+
 var meshList = []*Mesh{
 	{
 		ID:          1,

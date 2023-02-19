@@ -50,4 +50,5 @@ func (m *Meshes) addMesh(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	m.l.Printf("Mesh %#v", mesh)
+	data.AddMesh(mesh)
 }
