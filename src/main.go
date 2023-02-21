@@ -16,11 +16,9 @@ func main() {
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
 
 	mh := handlers.NewMeshes(l)
-	gh := handlers.NewGoodbye(l)
 
 	sm := http.NewServeMux()
 	sm.Handle("/", mh)
-	sm.Handle("/goodbye", gh)
 
 	s := &http.Server{
 		Addr:         ":9090",

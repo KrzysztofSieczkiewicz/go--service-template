@@ -2,6 +2,7 @@ package data
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"time"
 )
@@ -16,6 +17,11 @@ type Mesh struct {
 
 type Meshes []*Mesh
 
+func (m *Mesh) FromJSON(r io.Reader) error {
+	d := json.NewDecoder(r)
+	return d.Decode(m)
+}
+
 func (m *Meshes) ToJSON(w io.Writer) error {
 	e := json.NewEncoder(w)
 	return e.Encode(m)
@@ -23,6 +29,39 @@ func (m *Meshes) ToJSON(w io.Writer) error {
 
 func GetMeshes() Meshes {
 	return meshList
+}
+
+func AddMesh(m *Mesh) {
+	m.ID = GetNextID()
+	meshList = append(meshList, m)
+}
+
+func UpdateMesh(id int, m *Mesh) error {
+	_, pos, err := FindMesh(id)
+	if err != nil {
+		return err
+	}
+
+	m.ID = id
+	meshList[pos] = m
+
+	return nil
+}
+
+func GetNextID() int {
+	m := meshList[len(meshList)-1]
+	return m.ID + 1
+}
+
+var ErrMeshNotFound = fmt.Errorf("Mesh not found")
+
+func FindMesh(id int) (*Mesh, int, error) {
+	for pos, m := range meshList {
+		if m.ID == id {
+			return m, pos, nil
+		}
+	}
+	return nil, -1, ErrMeshNotFound
 }
 
 var meshList = []*Mesh{
