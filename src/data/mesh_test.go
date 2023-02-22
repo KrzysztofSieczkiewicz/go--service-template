@@ -6,7 +6,7 @@ func TestChecksValidation(t *testing.T) {
 	m := &Mesh{
 		Name:        "testname",
 		Description: "testDesc",
-		Address:     "something/else",
+		Address:     "test/mesh.log",
 	}
 
 	err := m.Validate()

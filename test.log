@@ -8,26 +8,41 @@
 0040: 41 63 63 65 70 74 3a 20 2a 2f 2a 0d 0a 43 6f 6e Accept: */*..Con
 0050: 74 65 6e 74 2d 54 79 70 65 3a 20 61 70 70 6c 69 tent-Type: appli
 0060: 63 61 74 69 6f 6e 2f 6a 73 6f 6e 0d 0a 43 6f 6e cation/json..Con
-0070: 74 65 6e 74 2d 4c 65 6e 67 74 68 3a 20 38 37 0d tent-Length: 87.
+0070: 74 65 6e 74 2d 4c 65 6e 67 74 68 3a 20 37 33 0d tent-Length: 73.
 0080: 0a 0d 0a                                        ...
-=> Send data, 87 bytes (0x57)
+=> Send data, 73 bytes (0x49)
 0000: 7b 22 49 64 22 3a 31 2c 22 4e 61 6d 65 22 3a 22 {"Id":1,"Name":"
 0010: 41 70 70 6c 65 5f 30 31 22 2c 22 44 65 73 63 72 Apple_01","Descr
 0020: 69 70 74 69 6f 6e 22 3a 22 41 20 77 68 6f 6c 65 iption":"A whole
 0030: 20 61 70 70 6c 65 22 2c 22 41 64 64 72 65 73 73  apple","Address
-0040: 22 3a 22 73 6f 6d 65 2f 72 61 6e 64 6f 6d 2f 66 ":"some/random/f
-0050: 6f 6c 64 65 72 22 7d                            older"}
+0040: 22 3a 22 73 6f 6d 65 22 7d                      ":"some"}
 == Info: Mark bundle as not supporting multiuse
-<= Recv header, 17 bytes (0x11)
-0000: 48 54 54 50 2f 31 2e 31 20 32 30 30 20 4f 4b 0d HTTP/1.1 200 OK.
-0010: 0a                                              .
+<= Recv header, 26 bytes (0x1a)
+0000: 48 54 54 50 2f 31 2e 31 20 34 30 30 20 42 61 64 HTTP/1.1 400 Bad
+0010: 20 52 65 71 75 65 73 74 0d 0a                    Request..
+<= Recv header, 41 bytes (0x29)
+0000: 43 6f 6e 74 65 6e 74 2d 54 79 70 65 3a 20 74 65 Content-Type: te
+0010: 78 74 2f 70 6c 61 69 6e 3b 20 63 68 61 72 73 65 xt/plain; charse
+0020: 74 3d 75 74 66 2d 38 0d 0a                      t=utf-8..
+<= Recv header, 33 bytes (0x21)
+0000: 58 2d 43 6f 6e 74 65 6e 74 2d 54 79 70 65 2d 4f X-Content-Type-O
+0010: 70 74 69 6f 6e 73 3a 20 6e 6f 73 6e 69 66 66 0d ptions: nosniff.
+0020: 0a                                              .
 <= Recv header, 37 bytes (0x25)
-0000: 44 61 74 65 3a 20 54 75 65 2c 20 32 31 20 46 65 Date: Tue, 21 Fe
-0010: 62 20 32 30 32 33 20 32 32 3a 35 39 3a 35 30 20 b 2023 22:59:50 
+0000: 44 61 74 65 3a 20 57 65 64 2c 20 32 32 20 46 65 Date: Wed, 22 Fe
+0010: 62 20 32 30 32 33 20 32 32 3a 34 32 3a 33 30 20 b 2023 22:42:30 
 0020: 47 4d 54 0d 0a                                  GMT..
-<= Recv header, 19 bytes (0x13)
+<= Recv header, 21 bytes (0x15)
 0000: 43 6f 6e 74 65 6e 74 2d 4c 65 6e 67 74 68 3a 20 Content-Length: 
-0010: 30 0d 0a                                        0..
+0010: 31 30 38 0d 0a                                  108..
 <= Recv header, 2 bytes (0x2)
 0000: 0d 0a                                           ..
+<= Recv data, 108 bytes (0x6c)
+0000: 45 72 72 6f 72 20 76 61 6c 69 64 61 74 69 6e 67 Error validating
+0010: 20 6d 65 73 68 3a 20 4b 65 79 3a 20 27 4d 65 73  mesh: Key: 'Mes
+0020: 68 2e 41 64 64 72 65 73 73 27 20 45 72 72 6f 72 h.Address' Error
+0030: 3a 46 69 65 6c 64 20 76 61 6c 69 64 61 74 69 6f :Field validatio
+0040: 6e 20 66 6f 72 20 27 41 64 64 72 65 73 73 27 20 n for 'Address' 
+0050: 66 61 69 6c 65 64 20 6f 6e 20 74 68 65 20 27 61 failed on the 'a
+0060: 64 64 72 65 73 73 27 20 74 61 67 0a             ddress' tag.
 == Info: Connection #0 to host localhost left intact

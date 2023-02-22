@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"regexp"
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -14,7 +15,7 @@ type Mesh struct {
 	Name        string `json:"name" validate:"required"`
 	Description string `json:"description" validate:"required"`
 	CreatedOn   string `json:"-"`
-	Address     string `json:"address" validate:"required"`
+	Address     string `json:"address" validate:"required,address"`
 }
 
 type Meshes []*Mesh
@@ -31,7 +32,17 @@ func (m *Meshes) ToJSON(w io.Writer) error {
 
 func (m *Mesh) Validate() error {
 	validate := validator.New()
+	validate.RegisterValidation("address", validateAddress)
+
 	return validate.Struct(m)
+}
+
+func validateAddress(fl validator.FieldLevel) bool {
+
+	re := regexp.MustCompile(`^(.*/)([^/]*)$`)
+	matches := re.FindAllString(fl.Field().String(), -1)
+
+	return len(matches) == 1
 }
 
 func GetMeshes() Meshes {

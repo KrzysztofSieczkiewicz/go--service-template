@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -72,9 +73,24 @@ func (m Meshes) MiddlewareValidateMesh(next http.Handler) http.Handler {
 			return
 		}
 
+		// validate the mesh
+		err = mesh.Validate()
+		if err != nil {
+			m.l.Println("[ERROR] validating mesh: ", err)
+
+			http.Error(
+				rw,
+				fmt.Sprintf("Error validating mesh: %s", err),
+				http.StatusBadRequest)
+
+			return
+		}
+
+		// add product to context
 		ctx := context.WithValue(r.Context(), KeyMesh{}, mesh)
 		req := r.WithContext(ctx)
 
+		// call next handler
 		next.ServeHTTP(rw, req)
 	})
 }
