@@ -1,0 +1,17 @@
+{
+    "ImportPath": "github.com/KrzysztofSieczkiewicz/go-service-template",
+    "GoVersion": "go1.12",
+    "GodepVersion": "v80",
+    "Deps": [
+        {
+            "ImportPath": "rsc.io/binaryregexp",
+            "Comment": "v0.2.0-1-g545cabd",
+            "Rev": "545cabda89ca36b48b8e681a30d9d769a30b3074"
+        },
+        {
+            "ImportPath": "rsc.io/binaryregexp/syntax",
+            "Comment": "v0.2.0-1-g545cabd",
+            "Rev": "545cabda89ca36b48b8e681a30d9d769a30b3074"
+        }
+    ]
+}
