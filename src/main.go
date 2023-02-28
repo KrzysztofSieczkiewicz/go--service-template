@@ -9,16 +9,32 @@ import (
 	"time"
 
 	"github.com/KrzysztofSieczkiewicz/go-service-template/src/handlers"
+	"github.com/go-openapi/runtime/middleware"
+	"github.com/gorilla/mux"
 )
 
 func main() {
-
-	l := log.New(os.Stdout, "product-api", log.LstdFlags)
+	l := log.New(os.Stdout, "mesh-api", log.LstdFlags)
 
 	mh := handlers.NewMeshes(l)
 
-	sm := http.NewServeMux()
-	sm.Handle("/", mh)
+	sm := mux.NewRouter()
+
+	getRouter := sm.Methods(http.MethodGet).Subrouter()
+	getRouter.HandleFunc("/", mh.GetMeshes)
+
+	postRouter := sm.Methods(http.MethodPost).Subrouter()
+	postRouter.HandleFunc("/", mh.AddMesh)
+	postRouter.Use(mh.MiddlewareValidateMesh)
+
+	putRouter := sm.Methods(http.MethodPut).Subrouter()
+	putRouter.HandleFunc("/{id:[0-9]+}", mh.UpdateMeshes)
+	putRouter.Use(mh.MiddlewareValidateMesh)
+
+	opts := middleware.RedocOpts{SpecURL: "/swagger.yaml"}
+	sh := middleware.Redoc(opts, nil)
+	getRouter.Handle("/docs", sh)
+	getRouter.Handle("/swagger.yaml", http.FileServer(http.Dir("./")))
 
 	s := &http.Server{
 		Addr:         ":9090",
