@@ -1,13 +1,47 @@
 basePath: /
 consumes:
 - application/json
+definitions:
+  Mesh:
+    properties:
+      address:
+        type: string
+        x-go-name: Address
+      description:
+        type: string
+        x-go-name: Description
+      id:
+        format: int64
+        type: integer
+        x-go-name: ID
+      name:
+        type: string
+        x-go-name: Name
+    type: object
+    x-go-package: github.com/KrzysztofSieczkiewicz/go-service-template/src/data
 info:
   description: '# Documentation for Product API'
   title: of Product API
   version: 1.0.0
-paths: {}
+paths:
+  /meshes:
+    get:
+      description: Returns a list of meshes from the data store
+      operationId: listMeshes
+      responses:
+        "200":
+          $ref: '#/responses/meshesResponse'
+      tags:
+      - meshes
 produces:
 - application/json
+responses:
+  meshResponse:
+    description: ""
+    schema:
+      items:
+        $ref: '#/definitions/Mesh'
+      type: array
 schemes:
 - http
 swagger: "2.0"

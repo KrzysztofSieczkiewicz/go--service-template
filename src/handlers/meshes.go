@@ -25,6 +25,13 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// swagger:response meshResponse
+type meshesResponseWrapper struct {
+	// All meshes in the system
+	// in: body
+	Body []data.Mesh
+}
+
 type Meshes struct {
 	l *log.Logger
 }
@@ -33,6 +40,12 @@ func NewMeshes(l *log.Logger) *Meshes {
 	return &Meshes{l}
 }
 
+// swagger:route GET /meshes meshes listMeshes
+// Returns a list of meshes from the data store
+// responses:
+//	200: meshesResponse
+
+// GetMeshes returns all meshes from the data store
 func (m *Meshes) GetMeshes(rw http.ResponseWriter, r *http.Request) {
 	m.l.Println("Handle GET Meshes")
 
@@ -71,7 +84,6 @@ func (m *Meshes) UpdateMeshes(rw http.ResponseWriter, r *http.Request) {
 		http.Error(rw, "Mesh update error", http.StatusInternalServerError)
 		return
 	}
-
 }
 
 type KeyMesh struct{}

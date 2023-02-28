@@ -38,7 +38,6 @@ func (m *Mesh) Validate() error {
 }
 
 func validateAddress(fl validator.FieldLevel) bool {
-
 	re := regexp.MustCompile(`^(.*/)([^/]*)$`)
 	matches := re.FindAllString(fl.Field().String(), -1)
 
