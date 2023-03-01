@@ -25,11 +25,22 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// swagger:response meshResponse
+// swagger:response meshesResponse
 type meshesResponseWrapper struct {
 	// All meshes in the system
 	// in: body
 	Body []data.Mesh
+}
+
+// swagger:response noContent
+type meshNoContent struct{}
+
+// swagger:parameters deleteMesh
+type meshIDParameterWrapper struct {
+	// the id of the mesh to be deleted from the database
+	// in: path
+	// required: true
+	ID int `json:"id"`
 }
 
 type Meshes struct {
@@ -43,7 +54,7 @@ func NewMeshes(l *log.Logger) *Meshes {
 // swagger:route GET /meshes meshes listMeshes
 // Returns a list of meshes from the data store
 // responses:
-//	200: meshesResponse
+// 200: meshesResponse
 
 // GetMeshes returns all meshes from the data store
 func (m *Meshes) GetMeshes(rw http.ResponseWriter, r *http.Request) {
@@ -57,6 +68,12 @@ func (m *Meshes) GetMeshes(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// swagger:route POST /meshes meshes postMeshes
+// Returns a 200 message
+// responses:
+// 200: noContent
+
+// PutMesh creates new mesh in database
 func (m *Meshes) AddMesh(rw http.ResponseWriter, r *http.Request) {
 	m.l.Println("Handle POST Mesh")
 
@@ -64,6 +81,12 @@ func (m *Meshes) AddMesh(rw http.ResponseWriter, r *http.Request) {
 	data.AddMesh(mesh)
 }
 
+// swagger:route PUT /meshes/{id} meshes putMesh
+// Returns a 200 message
+// responses:
+// 200: noContent
+
+// PutMesh updates mesh in database or creates new
 func (m *Meshes) UpdateMeshes(rw http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
@@ -89,7 +112,7 @@ func (m *Meshes) UpdateMeshes(rw http.ResponseWriter, r *http.Request) {
 // swagger:route DELETE /meshes/{id} meshes deleteMesh
 // Returns a 201 message
 // responses:
-//	201: noContent
+// 201: noContent
 
 // DeleteMesh deletes mesh from database
 func (m *Meshes) DeleteMesh(rw http.ResponseWriter, r *http.Request) {

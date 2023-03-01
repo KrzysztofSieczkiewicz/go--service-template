@@ -10,7 +10,12 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
+// swagger:model
 type Mesh struct {
+	// the id for this mesh
+	//
+	// required: true
+	// min: 0
 	ID          int    `json:"id"`
 	Name        string `json:"name" validate:"required"`
 	Description string `json:"description" validate:"required"`
