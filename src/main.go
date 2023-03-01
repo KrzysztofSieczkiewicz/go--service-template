@@ -31,6 +31,9 @@ func main() {
 	putRouter.HandleFunc("/{id:[0-9]+}", mh.UpdateMeshes)
 	putRouter.Use(mh.MiddlewareValidateMesh)
 
+	deleteRouter := sm.Methods(http.MethodDelete).Subrouter()
+	deleteRouter.HandleFunc("/", mh.DeleteMesh)
+
 	opts := middleware.RedocOpts{SpecURL: "/swagger.yaml"}
 	sh := middleware.Redoc(opts, nil)
 	getRouter.Handle("/docs", sh)

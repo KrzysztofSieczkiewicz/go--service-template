@@ -11,12 +11,16 @@ definitions:
         type: string
         x-go-name: Description
       id:
+        description: the id for this mesh
         format: int64
+        minimum: 0
         type: integer
         x-go-name: ID
       name:
         type: string
         x-go-name: Name
+    required:
+    - id
     type: object
     x-go-package: github.com/KrzysztofSieczkiewicz/go-service-template/src/data
 info:
@@ -33,15 +37,50 @@ paths:
           $ref: '#/responses/meshesResponse'
       tags:
       - meshes
+    post:
+      description: Returns a 200 message
+      operationId: postMeshes
+      responses:
+        "200":
+          $ref: '#/responses/noContent'
+      tags:
+      - meshes
+  /meshes/{id}:
+    delete:
+      description: Returns a 201 message
+      operationId: deleteMesh
+      parameters:
+      - description: the id of the mesh to be deleted from the database
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+        x-go-name: ID
+      responses:
+        "201":
+          $ref: '#/responses/noContent'
+      tags:
+      - meshes
+    put:
+      description: Returns a 200 message
+      operationId: putMesh
+      responses:
+        "200":
+          $ref: '#/responses/noContent'
+      tags:
+      - meshes
 produces:
 - application/json
 responses:
-  meshResponse:
+  meshesResponse:
     description: ""
     schema:
       items:
         $ref: '#/definitions/Mesh'
       type: array
+  noContent:
+    description: ""
 schemes:
 - http
 swagger: "2.0"
