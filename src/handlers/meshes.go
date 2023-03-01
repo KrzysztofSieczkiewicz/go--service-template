@@ -86,6 +86,31 @@ func (m *Meshes) UpdateMeshes(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// swagger:route DELETE /meshes/{id} meshes deleteMesh
+// Returns a 201 message
+// responses:
+//	201: noContent
+
+// DeleteMesh deletes mesh from database
+func (m *Meshes) DeleteMesh(rw http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
+
+	m.l.Println("Handle DELETE mesh")
+
+	err := data.DeleteMesh(id)
+
+	if err == data.ErrMeshNotFound {
+		http.Error(rw, "Mesh not found", http.StatusNotFound)
+		return
+	}
+
+	if err != nil {
+		http.Error(rw, "Error during mesh deletion", http.StatusInternalServerError)
+		return
+	}
+}
+
 type KeyMesh struct{}
 
 func (m Meshes) MiddlewareValidateMesh(next http.Handler) http.Handler {

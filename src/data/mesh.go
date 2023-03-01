@@ -49,12 +49,12 @@ func GetMeshes() Meshes {
 }
 
 func AddMesh(m *Mesh) {
-	m.ID = GetNextID()
+	m.ID = getNextID()
 	meshList = append(meshList, m)
 }
 
 func UpdateMesh(id int, m *Mesh) error {
-	_, pos, err := FindMesh(id)
+	_, pos, err := findMesh(id)
 	if err != nil {
 		return err
 	}
@@ -65,14 +65,24 @@ func UpdateMesh(id int, m *Mesh) error {
 	return nil
 }
 
-func GetNextID() int {
+func DeleteMesh(id int) error {
+	_, pos, err := findMesh(id)
+	if err != nil {
+		return err
+	}
+
+	meshList = append(meshList[:pos], meshList[pos+1])
+	return nil
+}
+
+func getNextID() int {
 	m := meshList[len(meshList)-1]
 	return m.ID + 1
 }
 
 var ErrMeshNotFound = fmt.Errorf("Mesh not found")
 
-func FindMesh(id int) (*Mesh, int, error) {
+func findMesh(id int) (*Mesh, int, error) {
 	for pos, m := range meshList {
 		if m.ID == id {
 			return m, pos, nil
