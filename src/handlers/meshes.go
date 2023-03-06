@@ -60,6 +60,8 @@ func NewMeshes(l *log.Logger) *Meshes {
 func (m *Meshes) GetMeshes(rw http.ResponseWriter, r *http.Request) {
 	m.l.Println("Handle GET Meshes")
 
+	rw.Header().Add("Content-Type", "application/json")
+
 	lm := data.GetMeshes()
 
 	err := lm.ToJSON(rw)
