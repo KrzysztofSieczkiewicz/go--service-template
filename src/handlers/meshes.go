@@ -35,7 +35,7 @@ type meshesResponseWrapper struct {
 // swagger:response noContent
 type meshNoContent struct{}
 
-// swagger:parameters deleteMesh
+// swagger:parameters deleteMesh putMesh
 type meshIDParameterWrapper struct {
 	// the id of the mesh to be deleted from the database
 	// in: path

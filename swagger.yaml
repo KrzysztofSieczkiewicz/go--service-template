@@ -65,6 +65,14 @@ paths:
     put:
       description: Returns a 200 message
       operationId: putMesh
+      parameters:
+      - description: the id of the mesh to be deleted from the database
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+        x-go-name: ID
       responses:
         "200":
           $ref: '#/responses/noContent'
